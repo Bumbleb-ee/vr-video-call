@@ -63,3 +63,7 @@ function attachRemoteStream(stream) {
 
 function setStatus(message, type) {
   statusEl.textContent = message;
+  statusEl.className = 'status ' + type;  ← ADD THIS
+}                                          ← ADD THIS
+
+init();                                    ← ADD THIS
