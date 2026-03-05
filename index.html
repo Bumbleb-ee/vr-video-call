@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VR Video Call</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a-scene>
+
+    <!-- Sky & Floor -->
+    <a-sky color="#1a1a2e"></a-sky>
+    <a-plane position="0 0 0" rotation="-90 0 0"
+             width="20" height="20" color="#2d2d44"></a-plane>
+
+    <!-- Back Wall -->
+    <a-box position="0 2.5 -6" width="14" height="6"
+           depth="0.1" color="#223"></a-box>
+
+    <!-- Left Wall -->
+    <a-box position="-7 2.5 0" width="0.1" height="6"
+           depth="20" color="#223"></a-box>
+
+    <!-- Right Wall -->
+    <a-box position="7 2.5 0" width="0.1" height="6"
+           depth="20" color="#223"></a-box>
+
+    <!-- Ceiling -->
+    <a-plane position="0 5 0" rotation="90 0 0"
+             width="20" height="20" color="#1a1a2e"></a-plane>
+
+    <!-- YOUR Video Panel -->
+    <a-video src="#localVideo"
+             position="-2.5 2.2 -5"
+             width="3.5" height="2.5"
+             rotation="0 10 0"></a-video>
+    <a-text value="YOU" position="-2.5 3.8 -5"
+            align="center" color="#00ff88" width="5"></a-text>
+
+    <!-- REMOTE Video Panel -->
+    <a-video src="#remoteVideo"
+             position="2.5 2.2 -5"
+             width="3.5" height="2.5"
+             rotation="0 -10 0"></a-video>
+    <a-text value="REMOTE USER" position="2.5 3.8 -5"
+            align="center" color="#00aaff" width="5"></a-text>
+
+    <!-- Project Title -->
+    <a-text value="VR Video Call - Young Innovator's Lab"
+            position="0 4.5 -5"
+            align="center" color="white" width="8"></a-text>
+
+    <!-- Floor Grid (looks cool!) -->
+    <a-grid position="0 0.01 0"
+            width="20" height="20"
+            color="#ffffff" opacity="0.1"></a-grid>
+
+    <!-- Lights -->
+    <a-light type="ambient" intensity="0.4"></a-light>
+    <a-light type="point" position="0 5 0"
+             color="#ffffff" intensity="1.2"></a-light>
+    <a-light type="point" position="-3 3 -3"
+             color="#00ff88" intensity="0.5"></a-light>
+    <a-light type="point" position="3 3 -3"
+             color="#00aaff" intensity="0.5"></a-light>
+
+    <!-- Camera -->
+    <a-camera position="0 1.6 3" wasd-controls look-controls>
+      <a-cursor color="yellow" fuse="false"></a-cursor>
+    </a-camera>
+
+  </a-scene>
+
+  <!-- Hidden Video Elements -->
+  <video id="localVideo" autoplay muted playsinline
+         style="display:none"></video>
+  <video id="remoteVideo" autoplay playsinline
+         style="display:none"></video>
+
+  <!-- UI Panel -->
+  <div class="ui-panel">
+    <h3>🥽 VR Video Call</h3>
+    <p>Your ID: <strong id="my-id">Connecting...</strong></p>
+    <div class="input-row">
+      <input id="peer-input" placeholder="Paste friend's ID here..." />
+      <button onclick="callPeer()">📞 Call</button>
+    </div>
+    <p id="status" class="status">⏳ Starting camera...</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+---
+
+## After Pasting This:
+```
+1. Commit index.html on GitHub
+2. Create style.css → paste CSS code (scroll up)
+3. Create app.js → paste JS code (scroll up)
+4. Enable GitHub Pages
+5. Open the live URL!
