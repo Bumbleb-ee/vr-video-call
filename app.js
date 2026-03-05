@@ -8,25 +8,17 @@ async function init() {
   try {
     setStatus('📡 Requesting camera...', '');
 
-    // Try simple video first
     localStream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'user' },
-      audio: false  // audio off first to test
+      audio: false
     });
 
     const localVideo = document.getElementById('localVideo');
     localVideo.srcObject = localStream;
-    
-    // Force play
-    localVideo.onloadedmetadata = () => {
-      localVideo.play();
-      setStatus('✅ Camera working! Connecting...', 'connected');
-    };
+    localVideo.play();
+    setStatus('✅ Camera working! Connecting...', 'connected');
 
-    // Setup peer
-    peer = new Peer(undefined, {
-      debug: 2
-    });
+    peer = new Peer(undefined, { debug: 2 });
 
     peer.on('open', (id) => {
       myIdEl.textContent = id;
@@ -42,12 +34,11 @@ async function init() {
 
     peer.on('error', (err) => {
       setStatus('❌ Peer error: ' + err.type, 'error');
-      console.error('Peer error:', err);
     });
 
   } catch (err) {
-    console.error('Full error:', err);
     setStatus('❌ ' + err.name + ': ' + err.message, 'error');
+    console.error('Camera error:', err);
   }
 }
 
@@ -72,17 +63,3 @@ function attachRemoteStream(stream) {
 
 function setStatus(message, type) {
   statusEl.textContent = message;
-  statusEl.className = 'status ' + type;
-}
-
-init();
-```
-
----
-
-### After updating:
-```
-1. Commit the file on GitHub
-2. Wait 1 minute
-3. Hard refresh: Ctrl+Shift+R
-4. Check what status message shows now!
